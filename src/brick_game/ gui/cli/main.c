@@ -2,6 +2,7 @@
 #include "tetris.h"
 #include <unistd.h>
 #include <signal.h>
+#include <stdbool.h>
 
 static volatile bool running = true;
 

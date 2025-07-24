@@ -2,6 +2,7 @@
 #include <stdlib.h>
 #include <time.h>
 #include <string.h>
+#include <stdbool.h>
 
 // Tetris piece templates [piece_type][rotation][y][x]
 const int piece_templates[PIECE_COUNT][4][PIECE_SIZE][PIECE_SIZE] = {

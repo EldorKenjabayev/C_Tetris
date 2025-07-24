@@ -8,7 +8,7 @@ BUILD_DIR = build
 SRC_DIR = .
 BRICK_GAME_DIR = $(SRC_DIR)/brick_game/tetris
 GUI_DIR = $(SRC_DIR)/gui/cli
-TEST_DIR = $(SRC_DIR)/tests
+TEST_DIR = $(SRC_DIR)/../tests
 
 # Create build subdirectories
 BRICK_GAME_BUILD = $(BUILD_DIR)/brick_game/tetris

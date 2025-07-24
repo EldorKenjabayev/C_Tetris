@@ -1,6 +1,7 @@
 #include "tetris_fsm.h"
 #include "tetris_pieces.h"
 #include <string.h>
+#include <stdbool.h>
 
 void fsm_process_action(TetrisGame_t *game, UserAction_t action, bool hold) {
     if (!game) return;
@@ -81,14 +82,12 @@ void handle_spawn_state(TetrisGame_t *game) {
 
 void handle_moving_state(TetrisGame_t *game, UserAction_t action, bool hold) {
     Piece_t temp_piece = game->current_piece;
-    bool moved = false;
     
     switch (action) {
         case Left:
             temp_piece.x--;
             if (is_valid_position(game, &temp_piece)) {
                 game->current_piece.x--;
-                moved = true;
             }
             break;
             
@@ -96,7 +95,6 @@ void handle_moving_state(TetrisGame_t *game, UserAction_t action, bool hold) {
             temp_piece.x++;
             if (is_valid_position(game, &temp_piece)) {
                 game->current_piece.x++;
-                moved = true;
             }
             break;
             
@@ -114,7 +112,6 @@ void handle_moving_state(TetrisGame_t *game, UserAction_t action, bool hold) {
                 temp_piece.y++;
                 if (is_valid_position(game, &temp_piece)) {
                     game->current_piece.y++;
-                    moved = true;
                 } else {
                     game->state = STATE_ATTACHING;
                 }
@@ -125,7 +122,6 @@ void handle_moving_state(TetrisGame_t *game, UserAction_t action, bool hold) {
             rotate_piece(&temp_piece);
             if (is_valid_position(game, &temp_piece)) {
                 copy_piece(&temp_piece, &game->current_piece);
-                moved = true;
             }
             break;
             
@@ -253,7 +249,7 @@ void update_score(TetrisGame_t *game, int lines_cleared) {
 }
 
 void update_level_and_speed(TetrisGame_t *game) {
-    int new_level = (game->lines_cleared / 10) + 1;
+    int new_level = (game->score / 600) + 1;
     
     if (new_level > 10) {
         new_level = 10;
